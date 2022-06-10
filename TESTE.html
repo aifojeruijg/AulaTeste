@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <button id="btnAPI">Clique</button>
+
+    <main>
+
+    </main>
+
+</body>
+</html>
+
+<script>
+    var main = document.getElementsByTagName('main')[0];
+    var btnAPI = document.getElementById('btnAPI');
+
+    function criarLista(produtos){
+    const lista = document.createElement('ul');
+    for (const produto of produtos) {
+        const item = document.createElement('li');
+        item.innerText = produto.nome;   
+        lista.appendChild(item);                                     
+    }
+    main.appendChild(lista);
+}
+
+function gerarLista(url){
+    fetch(url)
+    .then((resposta)=> {
+        return resposta.json();
+    })
+    .then((json)=>{
+        criarLista(json);
+    })
+}
+
+btnAPI.onclick = ()=>{     
+    main.innerHTML = '';      
+    gerarLista('http://localhost:3000/produtos');
+}
+
+</script>
